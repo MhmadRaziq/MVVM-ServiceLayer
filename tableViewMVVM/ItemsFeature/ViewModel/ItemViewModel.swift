@@ -8,18 +8,14 @@
 import Foundation
 
 class ItemViewModel {
-
-  let item: Item
-
-  init(item: Item) {
+  let item: Product
+  init(item: Product) {
     self.item = item
   }
-
   var title: String {
     return self.item.title
   }
-
   var subtitle: String {
-    return self.item.subtitle
+    return self.item.category
   }
 }

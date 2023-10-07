@@ -12,14 +12,14 @@ class ItemsViewController: UIViewController {
   @IBOutlet weak var itemsTableView: UITableView!
   
   var itemsViewModel: ItemsViewModel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-      let sampleData = [
-          Item(title: "Item 1", subtitle: "Description for Item 1"),
-          Item(title: "Item 2", subtitle: "Description for Item 2"),
-          Item(title: "Item 3", subtitle: "Description for Item 3")
-      ]
-      itemsViewModel = ItemsViewModel(items: sampleData)
+      var serviceManager:ServiceManager = ServiceManager()
+      var services:Services =  Services(serviceManager: serviceManager)
+      itemsViewModel = ItemsViewModel( shopApi: APIs.Shop(services: services))
+      itemsViewModel.itemViewModelProtocol = self
+      itemsViewModel.getAllProducts()
     }
 }
 
@@ -38,4 +38,12 @@ extension ItemsViewController: UITableViewDelegate , UITableViewDataSource {
   }
 
 
+}
+
+extension ItemsViewController: ItemViewModelProtocol {
+  func updateUI(products: [Product]) {
+    DispatchQueue.main.async {
+      self.itemsTableView.reloadData()
+    }
+  }
 }

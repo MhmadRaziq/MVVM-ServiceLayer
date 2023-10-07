@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+class ItemsRequestModel: RequestModel {
+
+  override var method: String {
+    return RequestHTTPMethod.get.rawValue
+  }
+
+  override var path: String {
+    return "/products"
+  }
+
+}
